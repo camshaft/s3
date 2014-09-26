@@ -6,7 +6,7 @@
     "index.js"
   ],
   "dependencies": {
-    "camshaft/s3-1": "master",
+    "camshaft/s3-1": "0.4.0",
     "component/emitter": "^1.1.2",
     "component/mime": "^0.0.2",
     "camshaft/iframe-multipart": "master"
