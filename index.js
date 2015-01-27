@@ -29,7 +29,7 @@ function Upload(el, opts, config) {
   config = this.config = copy(config || opts.config || window.S3);
 
   var filename = el.value.replace(/^C:\\fakepath\\/i, '');
-  this.filename = filename.replace(/[\(\)%\+#]/g, '');
+  this.filename = filename.replace(/[^a-zA-Z0-9]/g, '_');
   this.name = (opts.format ? opts.format : formatName)(config.prefix, this.filename);
 
   if (!opts.protocol) opts.protocol = window.location.protocol;
@@ -77,12 +77,13 @@ Upload.prototype.end = function(fn) {
     'key': this.name,
     'AWSAccessKeyId': config.key,
     'acl': config.acl,
-    'success_action_redirect': config.redirect,
     'policy': config.policy,
     'signature': config.signature,
     'Content-Type': findMimeType(this.filename.split('.').pop()),
     'Content-Length': '1'
   };
+
+  if (config.redirect) inputs.success_action_redirect = config.redirect;
 
   for (var k in inputs) {
     if (!inputs[k]) continue;
