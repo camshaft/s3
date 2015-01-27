@@ -42,7 +42,7 @@ function Upload(el, opts, config) {
 
   window.S3 = config;
   opts.name = this.name;
-  config.redirect = '';
+  if (config.redirect) config.redirect = '';
   return wrapEnd(new FileUpload(el.files[0], opts), this.url);
 }
 
